@@ -9,8 +9,9 @@
 -- based on Apple's iOS UIKit
 local hui = {}
 
-hui.WindowManager = require "hui.WindowManager"
-hui.Window        = require "hui.Window"
-hui.View          = require "hui.View"
+local thispath = select('1', ...):match(".+%.") or ""
+hui.WindowManager = require(thispath.."hui.WindowManager")
+hui.Window        = require(thispath.."hui.Window")
+hui.View          = require(thispath.."hui.View")
 
 return hui
