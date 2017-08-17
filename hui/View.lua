@@ -93,11 +93,24 @@ function View:mouseEntered(x, y) end
 function View:mouseExited(x, y) end
 
 -- this is the OF window event, it is not called when resizing a hui.Window
-function View:windowResized(w, h) end
+-- override when subclassing
+function View:windowResized(w, h)
+	for i=1,#self.subviews do
+		self.subviews[i]:windowResized(w, h)
+	end
+end
 
 ------------------------
 -- View Change Callbacks
 ------------------------
+
+-- tell the view to layout it's subviews
+-- override when subclassing
+function View:layoutSubviews(w, h)
+	for i=1,#self.subviews do
+		self.subviews[i]:layoutSubviews(w, h)
+	end
+end
 
 -- tell the view that a subview was added
 -- override when subclassing

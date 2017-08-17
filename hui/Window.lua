@@ -77,6 +77,7 @@ function Window:enableFullscreen(value)
 		end
 	end
 	self.isFullscreen = value
+	self:layoutSubviews()
 end
 
 -- toggle between fullscreen and windowed mode
@@ -88,7 +89,7 @@ end
 -- Internal
 ------------
 
--- internal draw function
+-- for internal use
 -- override draw when subclassing
 function Window:_draw()
 	if self.isHidden then return end
@@ -97,7 +98,7 @@ function Window:_draw()
 	of.disableAlphaBlending()
 end
 
--- internal keyPressed function
+-- for internal use
 -- override keyPressed when subclassing
 function Window:_keyPressed(key)
 	if self.activeSubview then
@@ -106,7 +107,7 @@ function Window:_keyPressed(key)
 	self:keyPressed(key)
 end
 
--- internal keyReleased function
+-- for internal use
 -- override keyReleased when subclassing
 function Window:_keyReleased(key)
 	if self.activeSubview then
@@ -115,7 +116,7 @@ function Window:_keyReleased(key)
 	self:keyReleased(key)
 end
 
--- internal mouseMovedfunction
+-- for internal use
 -- override mouseMoved when subclassing
 function Window:_mouseMoved(x, y)
 	local point
@@ -143,7 +144,7 @@ function Window:_mouseMoved(x, y)
 	end
 end
 
--- internal mouseDragged function
+-- for internal use
 -- override mouseDragged when subclassing
 -- returns true if a subview within the window handled the event
 function Window:_mouseDragged(x, y)
@@ -159,7 +160,7 @@ function Window:_mouseDragged(x, y)
 	return handled
 end
 
--- internal mousePressed function
+-- for internal use
 -- override mousePressed when subclassing
 function Window:_mousePressed(x, y, button)
 	local point = of.Point(x, y)
@@ -179,7 +180,7 @@ function Window:_mousePressed(x, y, button)
 	end
 end
 
--- internal mouseReleased function
+-- for internal use
 -- override mouseReleased when subclassing
 function Window:_mouseReleased(x, y, button)
 	local point = of.Point(x, y)
@@ -192,18 +193,16 @@ function Window:_mouseReleased(x, y, button)
 	end
 end
 
--- internal windowResized function
+-- for internal use
 -- override windowResized function
 -- this is the OF window event, it is not called when resizing a hui.Window
 function Window:_windowResized(w, h)
 	if self.isFullscreen then
 		self.frame.width = w
 		self.frame.height = h
+		self:layoutSubviews()
 	end
-	self:windowResized()
-	for i=1,#self.subviews do
-		self.subviews[i]:windowResized(w, h)
-	end
+	self:windowResized(w, h)
 end
 
 return Window
