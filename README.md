@@ -7,6 +7,27 @@ A set of useful Lua classes & libraries for projects using loaf: <http://danomat
 
 [Dan Wilcox](http://danomatika.com) 2017
 
+Ingredients List
+----------------
+
+The ingredients are a mix of traditional Lua tables and reusable loaf class objects. The naming convention followed is for classes to begin with uppercase letters.
+
+* hui: the "Hooey UI", simple window & view hierarchy for UIs based on Apple's UIKit
+* resources: a loaf resource manager
+* SimpleSprite: simple sprite animation class using a sprite sheet
+* Scaler: a loaf 2d render scaler class
+
+Documentation can be found in the source files and in examples.
+
+Examples are found on the `examples` directory. They can be run by either drag & dropping the Lua scripts onto loaf or via the commandline:
+
+    loaf examples/huitest.lua
+
+Screenshots:
+
+![huitest](https://raw.githubusercontent.com/danomatika/loaf-ingredients/master/doc/huitest.png)
+**huitest: multiple hui.Windows with enclosed hui.Views, active window has a red border**
+
 Usage
 -----
 
@@ -22,12 +43,3 @@ In main.lua, you can then import and use resources.lua via the require keyword:
     local image = resources.add("hellokitty", "assets/hellokitty.png")
 
 Note the "libs.resources" which includes the "libs" subfolder. The same is true for libraries within a folder as require will automatically search for an init.lua file as well.
-
-Ingredients List
-----------------
-
-The ingredients are a mix of traditional Lua tables and reusable loaf class objects. The naming convention followed is for classes to begin with uppercase letters.
-
-* resources: a loaf resource manager
-* SimpleSprite: simple sprite animation class using a sprite sheet
-* Scaler: a loaf 2d render scaler class
