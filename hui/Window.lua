@@ -192,4 +192,18 @@ function Window:_mouseReleased(x, y, button)
 	end
 end
 
+-- internal windowResized function
+-- override windowResized function
+-- this is the OF window event, it is not called when resizing a hui.Window
+function Window:_windowResized(w, h)
+	if self.isFullscreen then
+		self.frame.width = w
+		self.frame.height = h
+	end
+	self:windowResized()
+	for i=1,#self.subviews do
+		self.subviews[i]:windowResized(w, h)
+	end
+end
+
 return Window

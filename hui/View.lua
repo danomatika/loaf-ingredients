@@ -92,6 +92,9 @@ function View:mouseReleased(x, y, button) end
 function View:mouseEntered(x, y) end
 function View:mouseExited(x, y) end
 
+-- this is the OF window event, it is not called when resizing a hui.Window
+function View:windowResized(w, h) end
+
 ------------------------
 -- View Change Callbacks
 ------------------------

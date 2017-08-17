@@ -203,14 +203,10 @@ function WindowManager:mouseReleased(x, y, button)
 	end
 end
 
--- resize any full screen windows
+-- resize any full screen windows and forward OF resize event to subviews
 function WindowManager:windowResized(w, h)
 	for i=1,#self.windows do
-		local window = self.windows[i]
-		if window.isFullscreen then
-			window.frame.width = w
-			window.frame.height = h
-		end
+		self.windows[i]:_windowResized(w, h)
 	end
 end
 
