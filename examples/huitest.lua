@@ -107,11 +107,11 @@ view2.mouseReleased = function(self, x, y, button)
 	print("view2 released: "..x.." "..y)
 end
 view2.mouseEntered = function(self, x, y)
-	view2.backgroundColor = of.Color.gold
+	self.backgroundColor = of.Color.gold
 	print("view2 entered: "..x.." "..y)
 end
 view2.mouseExited = function(self, x, y)
-	view2.backgroundColor = of.Color(100, 100, 200)
+	self.backgroundColor = of.Color(100, 100, 200)
 	print("view2 exited: "..x.." "..y)
 end
 view2.becameActive = function(self)
@@ -121,6 +121,33 @@ end
 view2.resignedActive = function(self)
 	self.borderColor = nil
 	print("view2 no longer active")
+end
+
+-- a second subview of view1
+view3 = hui.View(140, 10, 50, 50)
+view3.backgroundColor = of.Color(100, 200, 200)
+view3.border = 1
+view3.mousePressed = function(self, x, y, button)
+	print("view3 clicked: "..x.." "..y)
+end
+view3.mouseReleased = function(self, x, y, button)
+	print("view3 released: "..x.." "..y)
+end
+view3.mouseEntered = function(self, x, y)
+	self.backgroundColor = of.Color.gold
+	print("view3 entered: "..x.." "..y)
+end
+view3.mouseExited = function(self, x, y)
+	self.backgroundColor = of.Color(100, 200, 200)
+	print("view3 exited: "..x.." "..y)
+end
+view3.becameActive = function(self)
+	self.borderColor = of.Color.blue
+	print("view3 active")
+end
+view3.resignedActive = function(self)
+	self.borderColor = nil
+	print("view3 no longer active")
 end
 
 -- custom hui.Window subclass
@@ -165,11 +192,11 @@ function MyView:keyPressed(key)
 	end
 end
 function MyView:mouseEntered(x, y)
-	view3.backgroundColor = of.Color.gold
+	self.backgroundColor = of.Color.gold
 	print(self.name.." entered")
 end
 function MyView:mouseExited(x, y)
-	view3.backgroundColor = of.Color(100, 200, 100)
+	self.backgroundColor = of.Color(100, 200, 100)
 	print(self.name.." exited")
 end
 function MyView:becameActive()
@@ -186,7 +213,7 @@ end
 window2 = MyWindow("window2", 340, 120, 200, 200)
 
 -- create a subview for window2 using the MyView class
-view3 = MyView("view3", 50, 50, 100, 100)
+view4 = MyView("view4", 50, 50, 100, 100)
 
 ------------
 -- Main Loop
@@ -200,9 +227,10 @@ function setup()
 	manager:addWindow(window1)
 	window1:addSubview(view1)
 	view1:addSubview(view2)
+	view1:addSubview(view3)
 
 	manager:addWindow(window2)
-	window2:addSubview(view3)
+	window2:addSubview(view4)
 
 	-- set the active window and bring it forward
 	manager:makeWindowActive(window2)
