@@ -167,15 +167,16 @@ function Window:_mousePressed(x, y, button)
 	local view = self:hitTest(x, y)
 	if view then
 		if view ~= self then
-			-- clicked on a subview
+			-- clicked in a subview
 			self:makeSubviewActive(view)
 		else
-			-- clicked on the window
+			-- clicked in the window
 			self:makeSubviewActive(nil)
 		end
 		local point = View.convertPoint(x, y, nil, view)
 		view:mousePressed(point.x, point.y, button)
 	else
+		-- clicked outside the window
 		self:makeSubviewActive(nil)
 	end
 end

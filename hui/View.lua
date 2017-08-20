@@ -180,6 +180,7 @@ function View:addSubview(view)
 	view:movingToSuperview(view)
 	table.insert(self.subviews, view)
 	view.superview = self
+	view.window = self.window
 	view:movedToSuperview()
 	self:addedSubview(view)
 end
@@ -209,6 +210,7 @@ function View:removeFromSuperview()
 	self:movingToSuperview(nil)
 	table.remove(self.superview.subviews, index)
 	self.superview = nil
+	self.window = nil
 	self:movedToSuperview()
 end
 
@@ -407,11 +409,8 @@ function View:hitTest(x, y)
 	if self.isHidden or not self.interactionEnabled then return nil end
 	if not self.frame:inside(x, y) then return nil end
 	for i=#self.subviews,1,-1 do
-		x = x - self.frame.x
-		y = y - self.frame.y
-		local subview = self.subviews[i]
-		local ret = subview:hitTest(x, y)
-		if ret then return ret end
+		local view = self.subviews[i]:hitTest(x - self.frame.x, y - self.frame.y)
+		if view then return view end
 	end
 	return self
 end
