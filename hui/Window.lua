@@ -13,6 +13,7 @@ function Window:__init(x, y, w, h)
 	self.overSubview = nil    -- the subview the mouse is currently over
 	self.manager = nil        -- parent window manager, if any
 	self.isFullscreen = false -- is this a fullscreen window?
+	self.window = self        -- for subviews
 end
 
 ------------------------------
@@ -22,8 +23,8 @@ end
 -- add a view to the end of the list of views
 function Window:addSubview(view)
 	view:movingToWindow(self)
-	View.addSubview(self, view)
 	view.window = self
+	View.addSubview(self, view)
 	view:movedToWindow()
 end
 
