@@ -106,7 +106,7 @@ end
 
 -- tell the view to layout it's subviews
 -- override when subclassing
-function View:layoutSubviews(w, h)
+function View:layoutSubviews()
 	for i=1,#self.subviews do
 		self.subviews[i]:layoutSubviews(w, h)
 	end
@@ -178,9 +178,10 @@ function View:resignedActive() end
 function View:addSubview(view)
 	if view.superview then view:removeFromSuperview() end
 	view:movingToSuperview(view)
-	table.insert(self.subviews, view)
 	view.superview = self
 	view.window = self.window
+	table.insert(self.subviews, view)
+	view:layoutSubviews()
 	view:movedToSuperview()
 	self:addedSubview(view)
 end
@@ -347,6 +348,15 @@ function View:sizeToFit()
 	for _,view in ipairs(self.subviews) do
 		self.frame:growToInclude(self:convertRect(view.frame, view, self))
 	end
+end
+
+--------------
+-- Positioning
+--------------
+
+-- set the position of the view centered at a given point
+function View:centerAt(x, y)
+	self.frame:setFromCenter(x, y, self.frame.width, self.frame.height)
 end
 
 ---------------------------------------------
