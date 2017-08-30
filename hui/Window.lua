@@ -1,6 +1,7 @@
 --   Copyright (c) 2017 Dan Wilcox <danomatika@gmail.com> MIT License.
 --   For information on usage and redistribution, and for a DISCLAIMER OF ALL
 --   WARRANTIES, see the file, "LICENSE.txt," in this distribution.
+
 local thispath = select('1', ...):match(".+%.") or ""
 local View = require(thispath.."View")
 

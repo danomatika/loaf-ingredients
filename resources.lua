@@ -6,7 +6,8 @@
 --   For information on usage and redistribution, and for a DISCLAIMER OF ALL
 --   WARRANTIES, see the file, "LICENSE.txt," in this distribution.
 --
--- based on sandwhich.lua: https://github.com/superzazu/sandwich.lua
+-- based on sandwich.lua: https://github.com/superzazu/sandwich.lua
+
 local resources = {}
 
 resources.resources = {} -- shared resources with ref count
