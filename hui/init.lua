@@ -10,8 +10,13 @@
 local hui = {}
 
 local thispath = select('1', ...):match(".+%.") or ""
+
+-- core
 hui.WindowManager = require(thispath.."hui.WindowManager")
 hui.Window        = require(thispath.."hui.Window")
 hui.View          = require(thispath.."hui.View")
+
+-- addons
+hui.Label         = require(thispath.."hui.Label")
 
 return hui
