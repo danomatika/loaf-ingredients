@@ -41,4 +41,16 @@ function Scaler:apply()
 	of.scale(self.scaleX, self.scaleY)
 end
 
+-- convert screen mouseX position to render scale coordinates
+function Scaler:mouseX(x)
+	if not x then x = of.getMouseX() end
+	return (x - self.render.x) / self.scaleX
+end
+
+-- oncvert screen mouseY position to render scale coordinates
+function Scaler:mouseY(y)
+	if not y then y = of.getMouseY() end
+	return (y - self.render.y) / self.scaleY
+end
+
 return Scaler
