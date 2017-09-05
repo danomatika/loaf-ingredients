@@ -14,22 +14,22 @@ resources.resources = {} -- shared resources with ref count
 
 -- create callbacks
 local create = {
-	font = function(path, size)
+	font = function(path, size, ...)
 		local object = of.TrueTypeFont()
-		if not object:load(path, size) then object = nil end
+		if not object:load(path, size, ...) then object = nil end
 		return object
 	end,
-	image = function(path)
+	image = function(path, ...)
 		local object = of.Image()
 		if not object:load(path) then object = nil end
 		return object
 	end,
-	video = function(path)
+	video = function(path, ...)
 		local object = of.VideoPlayer()
 		if not object:load(path) then object = nil end
 		return object
 	end,
-	sound = function(path)
+	sound = function(path, ...)
 		local object = of.SoundPlayer()
 		if not object:load(path) then object = nil end
 		return object
@@ -90,7 +90,7 @@ end
 
 -- add a type create callback function, ie. something like
 --     resources.addType("doodad",
---         function(path)
+--         function(path, ...)
 --             local object = Doodad()
 --             if not object:load(path) then object = nil end
 --             return object

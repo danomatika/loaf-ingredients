@@ -7,6 +7,12 @@ local View = require(thispath.."View")
 
 Label = class(View)
 
+-- default text offset as some fonts might need to be nudged
+Label.textOffset = {horz=0, vert=0}
+
+-- font fixed width default
+Label.fontFixedWidth = false
+
 -- Label: view with a string of text
 -- note: does not word wrap
 -- w & h are used to set the minsize otherwise the label shrinks to fit its text
@@ -18,6 +24,12 @@ function Label:__init(x, y, w, h)
 
 	-- padding around the label text
 	self.pad = {horz=0, vert=0}
+
+	-- text offset as some fonts might need to be nudged
+	self.textOffset = {horz=Label.textOffset.horz, vert=Label.textOffset.vert}
+
+	-- is the font fixed width? used when calculating min width
+	self.fontFixedWidth = Label.fontFixedWidth
 
 	-- text alignment within the label
 	-- horz: of.ALIGN_HORZ_LEFT, of.ALIGN_HORZ_CENTER, of.ALIGN_HORZ_RIGHT
@@ -48,7 +60,7 @@ function Label:draw()
 	-- use string bounding box
 	local x = 0
 	local y = self.font:stringHeight("#")
-	local bbox = self.font:getStringBoundingBox(self.text, self.frame.x, self.frame.y)
+	local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
 
 	-- adjust for horz alignment
 	if self.align.horz == of.ALIGN_HORZ_CENTER then
@@ -69,8 +81,9 @@ function Label:draw()
 	end
 
 	-- draw
+	of.fill()
 	of.setColor(self.textColor)
-	self.font:drawString(self.text, x-2, y)
+	self.font:drawString(self.text, x+self.textOffset.horz, y+self.textOffset.vert)
 	
 	self:drawBorder()
 end
@@ -82,8 +95,16 @@ end
 -- calculates view sized based on label text, call after setting text to resize
 function Label:layoutSubviews()
 	local rect = self.font:getStringBoundingBox(self.text, self.frame.x, self.frame.y)
-	rect.width = math.floor(rect.width + self.pad.horz * 2)
-	rect.height = math.floor(rect.height + self.pad.vert * 2)
+	if self.fontFixedWidth then
+		-- min fixed char width
+		rect.width = math.floor(math.max(rect.width, self.font:stringWidth("#")*string.len(self.text)) + self.pad.horz * 2)
+	else
+		-- variable char width
+		rect.width = math.floor(rect.width + self.pad.horz * 2)
+	end
+	-- min line height
+	rect.height = math.floor(math.max(rect.height, self.font:getLineHeight()) + self.pad.vert * 2)
+	-- check min size
 	if self.minsize then
 		local size = self:sizeThatFits(rect.width, rect.height)
 		if size.width < self.minsize.width then size.width = self.minsize.width end

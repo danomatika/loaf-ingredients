@@ -109,7 +109,7 @@ end
 -- override when subclassing
 function View:layoutSubviews()
 	for i=1,#self.subviews do
-		self.subviews[i]:layoutSubviews(w, h)
+		self.subviews[i]:layoutSubviews()
 	end
 end
 
@@ -141,7 +141,7 @@ end
 -- override when subclassing
 function View:movedToSuperview()
 	for i=1,#self.subviews do
-		self.subviews[i].superview = view
+		self.subviews[i].superview = self.superview
 		self.subviews[i]:movedToSuperview()
 	end
 end
@@ -178,12 +178,12 @@ function View:resignedActive() end
 -- add a view to the end of the list of subviews
 function View:addSubview(view)
 	if view.superview then view:removeFromSuperview() end
-	view:movingToSuperview(view)
+	view:movingToSuperview(self)
 	view.superview = self
 	view.window = self.window
 	table.insert(self.subviews, view)
-	view:layoutSubviews()
 	view:movedToSuperview()
+	view:layoutSubviews()
 	self:addedSubview(view)
 end
 
