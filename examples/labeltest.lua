@@ -5,6 +5,9 @@ local hui   = require "hui"
 font = of.TrueTypeFont()
 font:load("data/font/PrintChar21.ttf", 12)
 
+-- set global font offset as some fonts need a litte nudge
+hui.Label.textOffset.horz = -2
+
 local wm = hui.WindowManager()
 
 -- one fullscreen window
@@ -12,6 +15,7 @@ win = hui.Window()
 win:enableFullscreen(true)
 wm:addWindow(win)
 
+-- add labels
 local label = hui.Label(10, 10)
 label.text = "auto sized"
 label.font = font
