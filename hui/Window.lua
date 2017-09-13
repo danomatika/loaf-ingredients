@@ -152,7 +152,7 @@ end
 function Window:_mouseDragged(x, y)
 	local handled = false
 	local view = self.activeSubview
-	if not view then self:hitTest(x, y) end
+	if not view then view = self:hitTest(x, y) end
 	if view then
 		local point = View.convertPoint(x, y, nil, view)
 		view:mouseDragged(point.x, point.y)
@@ -188,8 +188,12 @@ end
 -- override mouseReleased when subclassing
 function Window:_mouseReleased(x, y, button)
 	local point = of.Point(x, y)
-	local view = self:hitTest(x, y)
+	local view = self.activeSubview
+	if not view then view = self:hitTest(x, y) end
 	if view then
+		if view ~= self.activeSubview then
+			self:makeSubviewActive(nil)
+		end
 		local point = View.convertPoint(x, y, nil, view)
 		view:mouseReleased(point.x, point.y, button)
 	else
