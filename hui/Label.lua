@@ -56,10 +56,22 @@ end
 -- draws the label text
 function Label:draw()
 	self:drawBackground()
+	of.setColor(self.textColor)
+	self:drawText()
+	self:drawBorder()
+end
+
+-----------------
+-- Draw Callbacks
+-----------------
+
+-- draw the current label text with an optional offset, does *not* set color
+function Label:drawText(x, y)
 
 	-- use string bounding box
-	local x = 0
-	local y = self.font:stringHeight("#")
+	if not x then x = 0 end
+	if not y then y = 0 end
+	y = y + self.font:stringHeight("#")
 	local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
 
 	-- adjust for horz alignment
@@ -82,10 +94,7 @@ function Label:draw()
 
 	-- draw
 	of.fill()
-	of.setColor(self.textColor)
 	self.font:drawString(self.text, x+self.textOffset.horz, y+self.textOffset.vert)
-	
-	self:drawBorder()
 end
 
 ------------------------
