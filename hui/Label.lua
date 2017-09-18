@@ -71,7 +71,7 @@ function Label:drawText(x, y)
 	-- use string bounding box
 	if not x then x = 0 end
 	if not y then y = 0 end
-	y = y + self.font:stringHeight("#")
+	y = y + self:fixedCharWidth()
 	local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
 
 	-- adjust for horz alignment
@@ -106,7 +106,7 @@ function Label:layoutSubviews()
 	local rect = self.font:getStringBoundingBox(self.text, self.frame.x, self.frame.y)
 	if self.fontFixedWidth then
 		-- min fixed char width
-		rect.width = math.floor(math.max(rect.width, self.font:stringWidth("#")*string.len(self.text)) + self.pad.horz * 2)
+		rect.width = math.ceil(math.max(rect.width, self:fixedCharWidth()*string.len(self.text)) + self.pad.horz * 2)
 	else
 		-- variable char width
 		rect.width = math.floor(rect.width + self.pad.horz * 2)
@@ -126,6 +126,15 @@ function Label:layoutSubviews()
 	end
 	View.layoutSubviews(self)
 	self:updateClipping()
+end
+
+-------
+-- Util
+-------
+
+-- width of a character when using a fixed width font
+function Label:fixedCharWidth()
+	return self.font:stringHeight("#")
 end
 
 return Label
