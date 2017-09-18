@@ -129,6 +129,14 @@ function View:removingSubview(view)
 	end
 end
 
+-- tell the view that a subview has been removed
+-- override when subclassing
+function View:removedSubview(view)
+	for i=1,#self.subviews do
+		self.subviews[i]:removedSubview(view)
+	end
+end
+
 -- tell the view that its superview is about to change to the specified superview
 -- override when subclassing
 function View:movingToSuperview(view)
@@ -141,7 +149,7 @@ end
 -- override when subclassing
 function View:movedToSuperview()
 	for i=1,#self.subviews do
-		self.subviews[i].superview = self.superview
+		self.subviews[i].superview = self
 		self.subviews[i]:movedToSuperview()
 	end
 end
@@ -177,14 +185,7 @@ function View:resignedActive() end
 
 -- add a view to the end of the list of subviews
 function View:addSubview(view)
-	if view.superview then view:removeFromSuperview() end
-	view:movingToSuperview(self)
-	view.superview = self
-	view.window = self.window
-	table.insert(self.subviews, view)
-	view:movedToSuperview()
-	view:layoutSubviews()
-	self:addedSubview(view)
+	self:insertSubview(view, #self.subviews+1)
 end
 
 -- move the specified subview so that it appears on top of its siblings
@@ -206,26 +207,43 @@ end
 -- remove the view from its superview
 function View:removeFromSuperview()
 	if not self.superview then return end
-	local index = self.superview:indexForSubview(view)
+	local index = self.superview:indexForSubview(self)
 	if index == 0 then return end -- not found
-	self.superview:removingSubview(self)
+	local super = self.superview
+	if super then super:removingSubview(self) end
 	self:movingToSuperview(nil)
 	table.remove(self.superview.subviews, index)
 	self.superview = nil
 	self.window = nil
 	self:movedToSuperview()
+	if super then super:removedSubview(self) end
 end
 
 -- insert a subview at the specified index
 function View:insertSubview(view, index)
-	table.insert(view, index)
+	local exists = self:indexForSubview(view)
+	if exists > 0 then
+		-- already exists
+		table.remove(self.subviews, exists)
+		table.insert(self.subviews, index-1, view)
+	else
+		-- adding
+		if view.superview then view:removeFromSuperview() end
+		view:movingToSuperview(self)
+		view.superview = self
+		view.window = self.window
+		table.insert(self.subviews, index, view)
+		view:movedToSuperview()
+		view:layoutSubviews()
+		self:addedSubview(view)
+	end
 end
 
 -- insert a subview above another subview in the view hierarchy
 function View:insertSubviewAbove(view1, view2)
 	for i,view in ipairs(self.subviews) do
 		if view == view2 then
-			table.insert(self.subviews, i+1, view1)
+			self:insertSubview(view1, i+1)
 			return
 		end
 	end
@@ -235,7 +253,7 @@ end
 function View:insertSubviewBelow(view1, view2)
 	for i,view in ipairs(self.subviews) do
 		if view == view2 then
-			table.insert(self.subviews, i, view1)
+			self:insertSubview(view1, i)
 			return
 		end
 	end

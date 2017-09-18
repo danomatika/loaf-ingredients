@@ -33,7 +33,11 @@ local create = {
 		local object = of.SoundPlayer()
 		if not object:load(path) then object = nil end
 		return object
-	end
+	end,
+	color = function(...)
+		local object = of.Color(...)
+		return object
+	end,
 }
 
 -- add a resource object with a unique name
