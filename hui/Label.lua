@@ -76,9 +76,9 @@ function Label:drawText(x, y)
 
 	-- adjust for horz alignment
 	if self.align.horz == of.ALIGN_HORZ_CENTER then
-		x = math.floor(self.frame.width/2 - bbox.width/2)
+		x = x + math.floor(self.frame.width/2 - bbox.width/2)
 	elseif self.align.horz == of.ALIGN_HORZ_RIGHT then
-		x = math.floor(self.frame.width - bbox.width) - self.pad.horz
+		x = x + math.floor(self.frame.width - bbox.width) - self.pad.horz
 	else -- LEFT & IGNORED
 		x = x + self.pad.horz
 	end
