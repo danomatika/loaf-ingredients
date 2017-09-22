@@ -329,14 +329,17 @@ end
 ----------------
 
 -- enable/disable bounds clipping
--- note: uses an fbo internally when enabled
-function View:enableClipping(value)
+-- note: uses an fbo internally when enabled,
+--       set antialias to true to enable linear texture scaling
+function View:enableClipping(value, antialias)
 	if value == self.clipsToBounds then return end
 	-- create or delete clipping fbo
 	if value then
+		local filter = of.NEAREST
+		if antialias then filter = of.LINEAR end
 		local fbo = of.Fbo()
 		fbo:allocate(self.frame.width, self.frame.height)
-		fbo:getTexture():setTextureMinMagFilter(of.LINEAR, of.LINEAR)
+		fbo:getTexture():setTextureMinMagFilter(filter, filter)
 		self._fbo = fbo
 	else
 		self._fbo = nil
@@ -348,7 +351,11 @@ end
 -- call this after changing the frame size
 function View:updateClipping()
 	if not self.clipsToBounds then return end
+	-- make sure to carry filters over
+	local minFilter = self._fbo:getTexture():getTextureData().minFilter
+	local magFilter = self._fbo:getTexture():getTextureData().magFilter
 	self._fbo:allocate(self.frame.width, self.frame.height)
+	self._fbo:getTexture():setTextureMinMagFilter(minFilter, magFilter)
 end
 
 ---------
