@@ -150,6 +150,7 @@ end
 function View:movedToSuperview()
 	for i=1,#self.subviews do
 		self.subviews[i].superview = self
+		self.subviews[i].window = self.window
 		self.subviews[i]:movedToSuperview()
 	end
 end

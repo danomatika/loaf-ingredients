@@ -45,6 +45,7 @@ function Label:__init(x, y, w, h)
 		self.minsize.width = w
 	end
 	if h then
+		if not self.minsize then self.minsize = {} end
 		self.minsize.height = h
 	end
 end
