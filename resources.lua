@@ -34,8 +34,8 @@ local create = {
 		if not object:load(path) then object = nil end
 		return object
 	end,
-	color = function(...)
-		local object = of.Color(...)
+	color = function(color)
+		local object = color
 		return object
 	end,
 }
