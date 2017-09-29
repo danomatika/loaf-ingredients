@@ -488,6 +488,7 @@ function View:_draw()
 		fbo:beginFbo()
 		self:draw()
 		fbo:endFbo()
+		of.setColor(255)
 		fbo:draw(0, 0)
 		of.popMatrix()
 	else
