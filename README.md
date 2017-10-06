@@ -16,6 +16,7 @@ The ingredients are a mix of traditional Lua tables and reusable loaf class obje
 * resources: a loaf resource manager
 * SimpleSprite: simple sprite animation class using a sprite sheet
 * Scaler: a loaf 2d render scaler class
+* Timer: a simple millisecond timer class
 
 Documentation can be found in the source files and in examples.
 
