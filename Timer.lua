@@ -21,6 +21,12 @@ function Timer:set()
 	self.timestamp = of.getElapsedTimeMillis()
 end
 
+-- set the timestamp and how many ms in the future the alarm should go off
+function Timer:setAlarm(alarmTime)
+	self:set()
+	self.alarmMS = alarmTime
+end
+
 -- has the alarm gone off?
 function Timer:alarm()
 	return of.getElapsedTimeMillis() >= self.timestamp + self.alarmMS
