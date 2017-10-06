@@ -12,27 +12,13 @@ local Timer = class()
 function Timer:__init(alarmTime)
 	self.alarmMS = 0   --  milliseconds before alarm
 	self.timestamp = 0 -- current timestamp
-	if alarmTime then
-		self:setAlarm(alarmTime)
-	else
-		self:set()
-	end
+	self:set()
+	if alarmTime then self.alarmMS = alarmTime end
 end
 
 -- set the timestamp to the current time
 function Timer:set()
 	self.timestamp = of.getElapsedTimeMillis()
-end
-
--- set the timestamp and how many ms in the future the alarm should go off
-function Timer:setAlarm(alarmTime)
-	self:set()
-	self.alarmMS = alarmTime
-end
-
--- set the alarm using the current alarm time
-function Timer:resetAlarm()
-	setAlarm(alarmMS)
 end
 
 -- has the alarm gone off?
