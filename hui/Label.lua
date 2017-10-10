@@ -107,7 +107,9 @@ function Label:layoutSubviews()
 	local rect = self.font:getStringBoundingBox(self.text, self.frame.x, self.frame.y)
 	if self.fontFixedWidth then
 		-- min fixed char width
-		rect.width = math.ceil(math.max(rect.width, self:fixedCharWidth()*string.len(self.text)) + self.pad.horz * 2)
+		local len = 0
+		if utf8 then len = utf8.len(self.text) else len = string.len(self.text) end
+		rect.width = math.ceil(math.max(rect.width, self:fixedCharWidth()*len) + self.pad.horz * 2)
 	else
 		-- variable char width
 		rect.width = math.floor(rect.width + self.pad.horz * 2)
