@@ -7,6 +7,9 @@ local View = require(thispath.."View")
 
 Label = class(View)
 
+-- default font if set
+Label.font = nil
+
 -- default text offset as some fonts might need to be nudged
 Label.textOffset = {horz=0, vert=0}
 
@@ -20,7 +23,7 @@ function Label:__init(x, y, w, h)
 	View.__init(self, x, y, w, h)
 	self.text = ""               -- text to display
 	self.textColor = of.Color(0) -- text color
-	self.font = nil              -- text font, required!
+	self.font = Label.font       -- text font, required!
 
 	-- padding around the label text
 	self.pad = {horz=0, vert=0}
