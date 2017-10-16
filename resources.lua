@@ -38,6 +38,10 @@ local create = {
 		local object = color
 		return object
 	end,
+	text = function(text)
+		local object = text
+		return object
+	end
 }
 
 -- add a resource object with a unique name
