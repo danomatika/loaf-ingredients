@@ -76,22 +76,24 @@ function Label:drawText(x, y)
 	if not x then x = 0 end
 	if not y then y = 0 end
 	y = y + self:fixedCharWidth()
-	local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
+	--local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
+	local w = self.font:stringWidth(self.text)
+	local h = self.font:stringHeight(self.text)
 
 	-- adjust for horz alignment
 	if self.align.horz == of.ALIGN_HORZ_CENTER then
-		x = x + math.floor(self.frame.width/2 - bbox.width/2)
+		x = x + math.floor(self.frame.width/2 - w/2)
 	elseif self.align.horz == of.ALIGN_HORZ_RIGHT then
-		x = x + math.floor(self.frame.width - bbox.width) - self.pad.horz
+		x = x + math.floor(self.frame.width - w) - self.pad.horz
 	else -- LEFT & IGNORED
 		x = x + self.pad.horz
 	end
 
 	-- adjust for vert alignment
 	if self.align.vert == of.ALIGN_VERT_CENTER then
-		y = y + math.floor(self.frame.height/2 - bbox.height/2)
+		y = y + math.floor(self.frame.height/2 - h/2)
 	elseif self.align.vert == of.ALIGN_VERT_BOTTOM then
-		y = y + math.floor(self.frame.height - bbox.height) - self.pad.vert
+		y = y + math.floor(self.frame.height - h) - self.pad.vert
 	else -- TOP & IGNORED
 		y = y + self.pad.vert
 	end

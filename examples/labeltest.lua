@@ -135,6 +135,17 @@ win:addSubview(label)
 
 autosize = label
 
+-- some punctuation chars probably won't be centered vertically...
+label = hui.Label(500, 400)
+label.text = ".-_.',:"
+label.border = 1
+label.borderColor = of.Color.darkGray
+label.align.horz = of.ALIGN_HORZ_CENTER
+label.align.vert = of.ALIGN_VERT_CENTER
+win:addSubview(label)
+label.minsize = {width=120, height=40}
+label:layoutSubviews()
+
 ------------
 -- Main Loop
 ------------
