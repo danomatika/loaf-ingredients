@@ -55,7 +55,7 @@ function SimpleSprite:draw(x, y)
 		of.pushMatrix()
 		of.translate(x, y)
 		of.scale(self.scale, self.scale)
-		of.setColor(of.Color.white)
+		of.setColor(255) -- white
 		self.sheet:drawSubsection(0, 0, self.spriteW, self.spriteH, sx, sy)
 		of.popMatrix()
 	end
