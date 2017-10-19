@@ -76,7 +76,6 @@ function Label:drawText(x, y)
 	if not x then x = 0 end
 	if not y then y = 0 end
 	y = y + self:fixedCharWidth()
-	--local bbox = self.font:getStringBoundingBox(self.text, 0, 0)
 	local w = self.font:stringWidth(self.text)
 	local h = self.font:stringHeight(self.text)
 
@@ -109,28 +108,29 @@ end
 
 -- calculates view sized based on label text, call after setting text to resize
 function Label:layoutSubviews()
-	local rect = self.font:getStringBoundingBox(self.text, self.frame.x, self.frame.y)
+	local w = self.font:stringWidth(self.text)
+	local h = self.font:stringHeight(self.text)
 	if self.fontFixedWidth then
 		-- min fixed char width
 		local len = 0
 		if utf8 then len = utf8.len(self.text) else len = string.len(self.text) end
-		rect.width = math.ceil(math.max(rect.width, self:fixedCharWidth()*len) + self.pad.horz * 2)
+		w = math.ceil(math.max(w, self:fixedCharWidth()*len) + self.pad.horz * 2)
 	else
 		-- variable char width
-		rect.width = math.floor(rect.width + self.pad.horz * 2)
+		w = math.floor(w + self.pad.horz * 2)
 	end
 	-- min line height
-	rect.height = math.floor(math.max(rect.height, self.font:getLineHeight()) + self.pad.vert * 2)
+	h = math.floor(math.max(h, self.font:getLineHeight()) + self.pad.vert * 2)
 	-- check min size
 	if self.minsize then
-		local size = self:sizeThatFits(rect.width, rect.height)
+		local size = self:sizeThatFits(w, h)
 		if size.width < self.minsize.width then size.width = self.minsize.width end
 		if size.height < self.minsize.height then size.height = self.minsize.height end
 		self.frame.width = size.width
 		self.frame.height = size.height
 	else
-		self.frame.width = rect.width
-		self.frame.height = rect.height
+		self.frame.width = w
+		self.frame.height = h
 	end
 	View.layoutSubviews(self)
 	self:updateClipping()
