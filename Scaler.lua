@@ -1,4 +1,4 @@
--- VERSION     = Scaler 1.0.0
+-- VERSION     = Scaler 1.0.1
 -- DESCRIPTION = loaf 2d screen render scaler
 -- URL         = http://github.com/danomatika/loaf-ingredients
 -- LICENSE     =
@@ -18,6 +18,7 @@ function Scaler:__init(w, h)
 	self.aspect = true           -- keep aspect ratio when scaling?
 	if not w then self.width = of.getWidth() end
 	if not h then self.height = of.getHeight() end
+	self:update()
 end
 
 -- update scaler with new window size
