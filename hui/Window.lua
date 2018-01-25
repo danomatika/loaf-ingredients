@@ -14,6 +14,7 @@ function Window:__init(x, y, w, h)
 	self.overSubview = nil    -- the subview the mouse is currently over
 	self.manager = nil        -- parent window manager, if any
 	self.isFullscreen = false -- is this a fullscreen window?
+	self.isMoveable = true    -- is this window moveable?
 	self.window = self        -- for subviews
 end
 

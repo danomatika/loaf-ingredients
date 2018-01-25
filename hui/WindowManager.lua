@@ -11,7 +11,7 @@ function WindowManager:__init()
 end
 
 ---------------------------------
--- Managing the Window Hieracrchy
+-- Managing the Window Hierarchy
 ---------------------------------
 
 -- add a window to the end of the list of windows
@@ -167,16 +167,22 @@ function WindowManager:mouseMoved(x, y)
 	end
 end
 
--- send mouseDragged to active window
-function WindowManager:mouseDragged(x, y)
+-- send mouseDragged to active window,
+-- uses global OF previous mouse pos unless overridden by setting the px & py
+-- paramaters, ie. custom scaling of mouse positions, etc
+function WindowManager:mouseDragged(x, y, px, py)
 	if self.activeWindow then
-		-- move window if click wasn't handled internally
-		-- and window is not fullscreen
+		-- move window if click wasn't handled internally,
+		-- window is moveable, there is no active subview,
+		-- and window is moveable and not fullscreen
 		if not self.activeWindow:_mouseDragged(x, y) and
 		   not self.activeWindow.activeSubview and
-		   not self.activeWindow.isFullscreen then
-			local dx = x - of.getPreviousMouseX()
-			local dy = y - of.getPreviousMouseY()
+		   not self.activeWindow.isFullscreen and
+		   self.activeWindow.moveable then
+		    if not px then px = of.getPreviousMouseX() end
+		    if not py then py = of.getPreviousMouseY() end
+			local dx = x - px
+			local dy = y - py
 			self.activeWindow.frame.x = self.activeWindow.frame.x + dx
 			self.activeWindow.frame.y = self.activeWindow.frame.y + dy
 		end
