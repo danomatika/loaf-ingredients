@@ -2,7 +2,7 @@ package.path = package.path .. ";../?.lua;../?/init.lua"
 
 local hui   = require "hui"
 
-font = of.TrueTypeFont()
+local font = of.TrueTypeFont()
 font:load("data/font/PrintChar21.ttf", 12)
 
 -- set default label font
@@ -123,7 +123,7 @@ label.align.horz = of.ALIGN_HORZ_CENTER
 label.align.vert = of.ALIGN_VERT_CENTER
 win:addSubview(label)
 
-minsize = label
+local minsize = label
 
 label = hui.Label(320, 400)
 label.text = "auto size"
@@ -133,7 +133,7 @@ label.align.horz = of.ALIGN_HORZ_CENTER
 label.align.vert = of.ALIGN_VERT_CENTER
 win:addSubview(label)
 
-autosize = label
+local autosize = label
 
 -- some punctuation chars probably won't be centered vertically...
 label = hui.Label(500, 400)

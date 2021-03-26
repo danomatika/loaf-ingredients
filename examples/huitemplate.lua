@@ -2,13 +2,20 @@ package.path = package.path .. ";../?.lua;../?/init.lua"
 
 local hui = require "hui"
 
-wm = hui.WindowManager()
+local wm = hui.WindowManager()
+local win = hui.Window(10, 10, 100, 100)
+
+wm:addWindow(win)
+win.backgroundColor = of.Color(200)
 
 ------------
 -- Main Loop
 ------------
 
 function setup()
+end
+
+function update()
 end
 
 function draw()

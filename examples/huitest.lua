@@ -49,7 +49,7 @@ view1.mouseExited = function(self, x, y)
 	print("view1 exited")
 end
 view1.draw = function(self)
-	-- cusomt draw function via overriding
+	-- custom draw function via overriding
 	hui.View.drawBackground(self)
 	hui.View.drawSubviews(self)
 	of.setColor(0)
