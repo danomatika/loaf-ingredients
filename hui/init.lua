@@ -1,4 +1,4 @@
--- VERSION     = hui 1.2.0
+-- VERSION     = hui 1.2.1
 -- DESCRIPTION = loaf Hooey UI view hierarchy and window manager
 -- URL         = http://github.com/danomatika/loaf-ingredients
 -- LICENSE     =

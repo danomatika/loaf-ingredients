@@ -178,7 +178,7 @@ function WindowManager:mouseDragged(x, y, px, py)
 		if not self.activeWindow:_mouseDragged(x, y) and
 		   not self.activeWindow.activeSubview and
 		   not self.activeWindow.isFullscreen and
-		   self.activeWindow.moveable then
+		   self.activeWindow.isMoveable then
 		    if not px then px = of.getPreviousMouseX() end
 		    if not py then py = of.getPreviousMouseY() end
 			local dx = x - px
