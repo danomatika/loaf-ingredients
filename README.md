@@ -28,7 +28,7 @@ Examples are found on the `examples` directory. They can be run by either drag &
 
 Screenshots:
 
-![huitest](https://raw.githubusercontent.com/danomatika/loaf-ingredients/master/doc/huitest.png)  
+![huitest](doc/huitest.png)  
 **huitest**: multiple hui.Windows with enclosed hui.Views, active window has a red border
 
 ![testwarper](doc/testwarper.png)  
