@@ -31,6 +31,9 @@ Screenshots:
 ![huitest](https://raw.githubusercontent.com/danomatika/loaf-ingredients/master/doc/huitest.png)  
 **huitest**: multiple hui.Windows with enclosed hui.Views, active window has a red border
 
+![testwarper](doc/testwarper.png)  
+**testwarper**: quad warper in edit mode
+
 Usage
 -----
 
