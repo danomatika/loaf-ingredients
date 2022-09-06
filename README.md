@@ -5,7 +5,7 @@ A set of useful Lua classes & libraries for projects using loaf: <http://danomat
 
 >loaf is an interpreter for [openFrameworks](http://openframeworks.cc/) which allows you to write OF applications in the [Lua](http://www.lua.org/) scripting language. This means you can quickly create using openFrameworks but without having to compile C++ or use a heavy IDE like Xcode or Visual Studio. A built-in OSC (Open Sound Control) server enables loaf to communicate natively with other creative coding and music applications over a network connection.
 
-[Dan Wilcox](http://danomatika.com) 2017
+[Dan Wilcox](http://danomatika.com) 2017-2022
 
 Ingredients List
 ----------------
@@ -17,6 +17,8 @@ The ingredients are a mix of traditional Lua tables and reusable loaf class obje
 * SimpleSprite: simple sprite animation class using a sprite sheet
 * Scaler: a loaf 2d render scaler class
 * Timer: a simple millisecond timer class
+* Warper: a quad warper using an fbo
+* options: super simple commandline options parser
 
 Documentation can be found in the source files and in examples.
 
