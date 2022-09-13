@@ -3,6 +3,7 @@ package.path = package.path .. ";../?.lua;../?/init.lua"
 local Warper = require "Warper"
 
 local rect = of.Rectangle(0.25, 0.25, 0.5, 0.5)
+local seed = 0
 local warper = Warper()
 local warp = true
 local help = [[
@@ -17,16 +18,23 @@ function setup()
 end
 
 function update()
+	seed = seed + 0.1
 end
 
 function draw()
 	if warp then
 		warper:beginWarp()
+		-- clear background manually
+		of.setColor(0)
+		of.drawRectangle(0, 0, of.getWidth(), of.getHeight())
 	end
 
 	of.setColor(0, 255, 255)
-	of.drawRectangle(rect.x * of.getWidth(), rect.y * of.getHeight(),
-		rect.width * of.getWidth(), rect.height * of.getHeight())
+	of.drawRectangle(
+		rect.x * of.getWidth() + math.sin(seed) * 10,
+		rect.y * of.getHeight() + math.cos(seed) * 10,
+		rect.width * of.getWidth(), rect.height * of.getHeight()
+	)
 	
 	if warp then
 		warper:endWarp()
