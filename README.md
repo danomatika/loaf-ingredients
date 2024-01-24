@@ -32,6 +32,9 @@ Screenshots:
 ![huitest](doc/huitest.png)  
 **huitest**: multiple hui.Windows with enclosed hui.Views, active window has a red border
 
+![testpanel](doc/testpanel.png)  
+**testpanel**: panel with label and sliders, inspired by ofxGui
+
 ![testwarper](doc/testwarper.png)  
 **testwarper**: quad warper in edit mode
 
