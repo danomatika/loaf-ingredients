@@ -13,6 +13,7 @@ Ingredients List
 The ingredients are a mix of traditional Lua tables and reusable loaf class objects. The naming convention followed is for classes to begin with uppercase letters.
 
 * hui: the "Hooey UI", simple window & view hierarchy for UIs based on Apple's UIKit
+* panel: a simple vertical gui panel inspired by ofxGui, uses hui
 * resources: a loaf resource manager
 * SimpleSprite: simple sprite animation class using a sprite sheet
 * Scaler: a loaf 2d render scaler class
