@@ -10,14 +10,14 @@
 
 local hui = {}
 
-local thispath = select('1', ...):match(".+%.") or ""
+hui.prefix = (...):match("(.-)[^%.]+$") .. "hui."
 
 -- core
-hui.WindowManager = require(thispath.."hui.WindowManager")
-hui.Window        = require(thispath.."hui.Window")
-hui.View          = require(thispath.."hui.View")
+hui.WindowManager = require(hui.prefix.."WindowManager")
+hui.Window        = require(hui.prefix.."Window")
+hui.View          = require(hui.prefix.."View")
 
 -- addons
-hui.Label         = require(thispath.."hui.Label")
+hui.Label         = require(hui.prefix.."Label")
 
 return hui

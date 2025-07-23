@@ -7,7 +7,7 @@ local View = require(thispath.."View")
 
 Label = class(View)
 
--- default font if set
+-- shared font
 Label.font = nil
 
 -- default text offset as some fonts might need to be nudged
@@ -23,6 +23,10 @@ function Label:__init(x, y, w, h)
 	View.__init(self, x, y, w, h)
 	self.text = ""               -- text to display
 	self.textColor = of.Color(0) -- text color
+	if not Label.font then -- lazy load default font
+		Label.font = of.TrueTypeFont()
+		Label.font:load(of.TTF_MONO, 12)
+	end
 	self.font = Label.font       -- text font, required!
 
 	-- padding around the label text
